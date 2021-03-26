@@ -1,23 +1,18 @@
-const express = require('express');
-const path = require('path');
+const axios = require('axios');
 
-const PORT = 5000;
+const NEWS_API_KEY = 'c3cd6edd23c64ae09998ad508e1076e8';
 
-const app = express();
-const router = express.Router();
+let query = process.argv[2];
 
-app.use(express.static("public"));
+const fetchData = (query) => {
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, "/public/pages/dashboard.html"));
-});
+    axios.get(`https://newsapi.org/v2/everything?q=${query}&apiKey=${NEWS_API_KEY}`)
+        .then(response => {
+            console.log(response.data);
+        }).catch(error => {
+            console.log(`Error while fetching data : ${error}`);
+        });
 
-app.get("*", (req, res) => {
-    res.send("404 - The resource you are trying to access is either broken or does not exist.");
-});
+}
 
-app.use("/", router);
-
-app.listen(PORT, () => {
-    console.log(`Server is running on PORT : ${PORT}`);
-});
+fetchData(query);
