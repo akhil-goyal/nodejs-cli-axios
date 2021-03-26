@@ -23,6 +23,7 @@ const createFile = articles => {
     // Completion of file creation.
     file.end();
 
+    // Displaying message when the file is created successfully.
     console.log('File created successfully.');
 
 }
@@ -68,6 +69,10 @@ const fetchData = query => {
     }
 
 }
+
+// A message to inform the user that the application is
+// running whenever the file is run through the CLI.
+console.log('Application is now running ...');
 
 // Invoking the function fetchData & setting query
 // as an argument.
