@@ -19,21 +19,25 @@ const createFile = (articles) => {
 
 const fetchData = (query) => {
 
-    axios.get(`https://newsapi.org/v2/everything?q=${query}&apiKey=${NEWS_API_KEY}`)
-        .then(response => {
+    if (query === undefined) {
+        console.log('Please provide a search query to use this application.');
+    } else {
+        axios.get(`https://newsapi.org/v2/everything?q=${query}&apiKey=${NEWS_API_KEY}`)
+            .then(response => {
 
-            const { totalResults, articles } = response.data;
+                const { totalResults, articles } = response.data;
 
-            if (totalResults === 0) {
-                console.log(`No result found for the query : "${query}"`);
-            } else {
-                console.log(articles);
-                createFile(articles);
-            }
+                if (totalResults === 0) {
+                    console.log(`No result found for the query : "${query}"`);
+                } else {
+                    console.log(articles);
+                    createFile(articles);
+                }
 
-        }).catch(error => {
-            console.log(`Error while fetching data : ${error}`);
-        });
+            }).catch(error => {
+                console.log(`Error while fetching data : ${error}`);
+            });
+    }
 
 }
 
